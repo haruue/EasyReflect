@@ -54,7 +54,7 @@ proxy.staticMethod(7);
 
 静态字段的 Setter 和 Getter 等同于静态方法。
 
-具体示例请戳 [这里](./src/test/java/moe/haruue/reflect/test/Test.java)
+具体示例请戳 [这里](./easy-reflect/src/test/java/moe/haruue/reflect/test/Test.java)
 
 ## License
 
