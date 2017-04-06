@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easyreflect.iml" filepath="$PROJECT_DIR$/.idea/modules/easyreflect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easyreflect_main.iml" filepath="$PROJECT_DIR$/.idea/modules/easyreflect_main.iml" group="easyreflect" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easyreflect_test.iml" filepath="$PROJECT_DIR$/.idea/modules/easyreflect_test.iml" group="easyreflect" />
+    </modules>
+  </component>
+</project>
