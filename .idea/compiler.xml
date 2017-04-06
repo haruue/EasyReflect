@@ -2,8 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="easy-reflect_main" target="1.5" />
+      <module name="easy-reflect_test" target="1.5" />
       <module name="easyreflect_main" target="1.5" />
+      <module name="EasyReflect_main" target="1.8" />
       <module name="easyreflect_test" target="1.5" />
+      <module name="EasyReflect_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

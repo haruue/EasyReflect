@@ -6,6 +6,19 @@ EasyReflect
 
 于是乎就有了这个！
 
+## Download
+``` Groovy
+repositories {
+    maven {
+        url 'https://dl.bintray.com/haruue/maven/'
+    }
+}
+
+dependencies {
+    compile 'moe.haruue:easy-reflect:1.1.0'
+}
+```
+
 ## Usage
 首先根据你要反射的类写一个接口，接口里包含有你要反射的方法的方法签名，此外你还可以使用 `@Setter` 和 `@Getter` 注解来创建一个字段的 Getter 和 Setter 方法。假如你要反射 `Target` 类的一个叫 `method` 的方法和一个叫 `staticMethod` 的方法，还需要反射一个叫做 `field` 的字段，那就这样写：
 
