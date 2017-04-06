@@ -12,7 +12,7 @@ EasyReflect
 ``` Java
 public interface TargetInterface {
     String method(int length);
-    double staticMethod(double x, int n);
+    double staticMethod(int length);
 
     @Getter(name = "field")
     String getField();
@@ -26,8 +26,8 @@ public interface TargetInterface {
 
 ``` Java
 TargetInterface proxy = EasyReflect.from(target, TargetInterface.class);
-proxy.method();
-proxy.staticMethod();
+proxy.method(5);
+proxy.staticMethod(6);
 proxy.getField();
 proxy.setField("abc");
 ```
@@ -36,7 +36,7 @@ proxy.setField("abc");
 
 ``` Java
 TargetInterface proxy = EasyReflect.from(null, Class.forName("moe.haruue.reflect.test.Target"), TargetInterface.class);
-proxy.staticMethod();
+proxy.staticMethod(7);
 ```
 
 静态字段的 Setter 和 Getter 等同于静态方法。
