@@ -8,24 +8,18 @@ EasyReflect
 
 ## Download
 ``` Groovy
-repositories {
-    maven {
-        url 'https://dl.bintray.com/haruue/maven/'
-    }
-}
-
 dependencies {
     compile 'moe.haruue:easy-reflect:1.1.0'
 }
 ```
 
 ## Usage
-首先根据你要反射的类写一个接口，接口里包含有你要反射的方法的方法签名，此外你还可以使用 `@Setter` 和 `@Getter` 注解来创建一个字段的 Getter 和 Setter 方法。假如你要反射 `Target` 类的一个叫 `method` 的方法和一个叫 `staticMethod` 的方法，还需要反射一个叫做 `field` 的字段，那就这样写：
+首先根据你要反射的类写一个接口，接口里包含有你要反射的方法的方法签名，此外你还可以使用 `@Setter` 和 `@Getter` 注解来创建一个字段的 Getter 和 Setter 方法。假如你要反射 `Target` 类的 `method` 方法和 `staticMethod` 方法，还需要反射 `field` 字段，那就这样写：
 
 ``` Java
 public interface TargetInterface {
     String method(int length);
-    double staticMethod(int length);
+    String staticMethod(int length);
 
     @Getter(name = "field")
     String getField();
@@ -35,7 +29,7 @@ public interface TargetInterface {
 }
 ```
 
-然后。。。
+然后使用 `EasyReflect` 创建代理，通过代理对象直接调用即可。。。
 
 ``` Java
 TargetInterface proxy = EasyReflect.from(target, TargetInterface.class);
@@ -45,7 +39,7 @@ proxy.getField();
 proxy.setField("abc");
 ```
 
-如果你并不能搞到一个类的实例，甚至连这个类本身都搞不到，你仍然可以反射它的静态方法。。。
+如果你没有这个类的实例，甚至连这个类本身都需要在运行时反射出来，你仍然可以反射它的静态方法。。。
 
 ``` Java
 TargetInterface proxy = EasyReflect.from(null, Class.forName("moe.haruue.reflect.test.Target"), TargetInterface.class);
@@ -54,6 +48,7 @@ proxy.staticMethod(7);
 
 静态字段的 Setter 和 Getter 等同于静态方法。
 
+## Example
 具体示例请戳 [这里](./easy-reflect/src/test/java/moe/haruue/reflect/test/Test.java)
 
 ## License
