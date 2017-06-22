@@ -6,7 +6,7 @@ package moe.haruue.reflect.test;
  */
 public class Target {
 
-    private String field = "this is a instance field.";
+    private String field = "this is a instance field";
 
     private static String staticField = "this is a static field";
 

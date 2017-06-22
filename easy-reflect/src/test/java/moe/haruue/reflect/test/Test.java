@@ -4,6 +4,8 @@ import moe.haruue.reflect.EasyReflect;
 import moe.haruue.reflect.Getter;
 import moe.haruue.reflect.Setter;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
@@ -11,6 +13,7 @@ public class Test {
 
     public interface TargetInterface {
         String method(int length);
+
         String staticMethod(int length);
 
         @Getter(name = "field")
@@ -30,19 +33,19 @@ public class Test {
     public void invokeWithInstance() throws Throwable {
         Target target = new Target();
         TargetInterface proxy = EasyReflect.from(target, TargetInterface.class);
-        System.out.println(proxy.getField());
+        assertEquals("this is a instance field", proxy.getField());
         proxy.setField("reflected");
-        System.out.println(proxy.getField());
-        System.out.println(proxy.method(3));
+        assertEquals("reflected", proxy.getField());
+        assertEquals("reflected".substring(0, 3), proxy.method(3));
     }
 
     @org.junit.Test
     public void invokeWithoutInstance() throws Throwable {
         TargetInterface proxy = EasyReflect.from(null, Class.forName("moe.haruue.reflect.test.Target"), TargetInterface.class);
-        System.out.println(proxy.getStaticField());
+        assertEquals("this is a static field", proxy.getStaticField());
         proxy.setStaticField("reflected");
-        System.out.println(proxy.getStaticField());
-        System.out.println(proxy.staticMethod(3));
+        assertEquals("reflected", proxy.getStaticField());
+        assertEquals("reflected".substring(0, 3), proxy.staticMethod(3));
     }
 
 }
