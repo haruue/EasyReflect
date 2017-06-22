@@ -2,10 +2,13 @@ package moe.haruue.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Locale;
 
 /**
  * Real handle which does reflect behind proxy
+ *
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
 class ReflectHandler implements InvocationHandler {
@@ -22,27 +25,33 @@ class ReflectHandler implements InvocationHandler {
         Getter getter = method.getAnnotation(Getter.class);
         Setter setter = method.getAnnotation(Setter.class);
         if (getter != null && setter != null) {
-            throw new IllegalArgumentException("method " + method.toGenericString() + " can not be @Getter and @Setter in the same time");
+            throw new IllegalArgumentException("method " + method.toGenericString() + " can not be @Getter and @Setter at the same time");
         }
-        if (getter != null) {   // as getter
-            if (args != null && args.length != 0) {
-                throw new IllegalArgumentException("getter " + method.toGenericString() + " can not have arguments");
-            }
-            Field targetField = getField(targetClazz, getter.name());
-            targetField.setAccessible(true);
-            return targetField.get(target);
+        if (getter != null) {
+            return getValue(getter, method, args);
         }
-        if (setter != null) {   // as setter
-            if (args == null || args.length != 1) {
-                throw new IllegalArgumentException("setter " + method.toGenericString() + " must have 1 argument");
-            }
-            Field targetField = getField(targetClazz, setter.name());
-            targetField.setAccessible(true);
-            targetField.set(target, args[0]);
+        if (setter != null) {
+            setValue(setter, method, args);
             return null;
         }
-        // as method
-        Method targetMethod = getMethod(targetClazz, method.getName(), method.getParameterTypes());
+        return invokeMethod(method, args);
+    }
+
+    private Object getValue(Getter getter, Method method, Object[] args) throws NoSuchFieldException, IllegalAccessException {
+        requireArgumentCount(method, args, 0);
+        Field targetField = ReflectionHelper.getAccessibleField(targetClazz, getter.name());
+        return targetField.get(target);
+    }
+
+    private void setValue(Setter setter, Method method, Object[] args) throws NoSuchFieldException, IllegalAccessException {
+        requireArgumentCount(method, args, 1);
+        Field targetField = ReflectionHelper.getAccessibleField(targetClazz, setter.name());
+        targetField.setAccessible(true);
+        targetField.set(target, args[0]);
+    }
+
+    private Object invokeMethod(Method method, Object[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Method targetMethod = ReflectionHelper.getMethod(targetClazz, method.getName(), method.getParameterTypes());
         if (targetMethod == null) {
             throw new NoSuchMethodException();
         }
@@ -50,32 +59,17 @@ class ReflectHandler implements InvocationHandler {
         return targetMethod.invoke(target, args);
     }
 
-    private static Method getMethod(Class<?> objectClass, String methodName, Class... paramTypes) throws NoSuchMethodException, SecurityException {
-        Method method;
-        try {
-            method = objectClass.getDeclaredMethod(methodName, paramTypes);
-        } catch (NoSuchMethodException e) {
-            if (null == objectClass.getSuperclass()) {
-                throw new NoSuchMethodException();
-            } else {
-                method = getMethod(objectClass.getSuperclass(), methodName, paramTypes);
+    private static void requireArgumentCount(Method method, Object[] args, int count) {
+        if (count == 0) {
+            if (args != null && args.length != count) {
+                throw new IllegalArgumentException(String.format(Locale.getDefault(), "%s should have no argument", method.toGenericString()));
             }
+            return;
         }
-        return method;
+        if (args == null || args.length != count) {
+            throw new IllegalArgumentException(String.format(Locale.getDefault(), "%s should have %d argument(s)", method.toGenericString(), count));
+        }
     }
 
-    private static Field getField(Class<?> objectClass, String fieldName) throws NoSuchFieldException, SecurityException {
-        Field field;
-        try {
-            field = objectClass.getDeclaredField(fieldName);
-        } catch (NoSuchFieldException e) {
-            if (null == objectClass.getSuperclass()) {
-                throw new NoSuchFieldException();
-            } else {
-                field = getField(objectClass.getSuperclass(), fieldName);
-            }
-        }
-        return field;
-    }
 
 }
