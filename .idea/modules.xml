@@ -3,6 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/EasyReflect.iml" filepath="$PROJECT_DIR$/.idea/modules/EasyReflect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EasyReflect.iml" filepath="$PROJECT_DIR$/.idea/modules/EasyReflect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EasyReflect_main.iml" filepath="$PROJECT_DIR$/.idea/modules/EasyReflect_main.iml" group="EasyReflect" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EasyReflect_test.iml" filepath="$PROJECT_DIR$/.idea/modules/EasyReflect_test.iml" group="EasyReflect" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect.iml" group="easy-reflect" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect_main.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect_main.iml" group="easy-reflect" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect_test.iml" filepath="$PROJECT_DIR$/.idea/modules/easy-reflect/easy-reflect_test.iml" group="easy-reflect" />
     </modules>
