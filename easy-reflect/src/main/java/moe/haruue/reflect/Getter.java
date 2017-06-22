@@ -20,4 +20,12 @@ public @interface Getter {
      * @return field name
      */
     String name();
+
+    /**
+     * Determine whether should search for the field in super class recursively.
+     *
+     * @return if returns false, proxy will search the field only in the target class.
+     */
+    boolean searchSuper() default false;
+
 }

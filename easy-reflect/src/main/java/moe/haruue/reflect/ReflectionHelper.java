@@ -1,5 +1,7 @@
 package moe.haruue.reflect;
 
+import com.sun.istack.internal.NotNull;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -9,15 +11,15 @@ import java.lang.reflect.Method;
 
 final class ReflectionHelper {
 
-    static Field getAccessibleField(Class<?> objectClass, String fieldName) throws NoSuchFieldException, SecurityException {
+    static Field getAccessibleField(Class<?> objectClass, String fieldName, boolean searchSuperClass) throws NoSuchFieldException, SecurityException {
         Field field;
         try {
             field = objectClass.getDeclaredField(fieldName);
         } catch (NoSuchFieldException e) {
-            if (null == objectClass.getSuperclass()) {
-                throw new NoSuchFieldException();
+            if (!searchSuperClass || objectClass.getSuperclass() == null) {
+                throw e;
             } else {
-                field = getAccessibleField(objectClass.getSuperclass(), fieldName);
+                field = getAccessibleField(objectClass.getSuperclass(), fieldName, true);
             }
         }
         field.setAccessible(true);
@@ -25,15 +27,15 @@ final class ReflectionHelper {
     }
 
 
-    static Method getMethod(Class<?> objectClass, String methodName, Class... paramTypes) throws NoSuchMethodException, SecurityException {
+    static Method getMethod(Class<?> objectClass, String methodName, Class[] paramTypes, boolean searchSuperClass) throws NoSuchMethodException, SecurityException {
         Method method;
         try {
             method = objectClass.getDeclaredMethod(methodName, paramTypes);
         } catch (NoSuchMethodException e) {
-            if (objectClass.getSuperclass() == null) {
-                throw new NoSuchMethodException();
+            if (!searchSuperClass || objectClass.getSuperclass() == null) {
+                throw e;
             } else {
-                method = getMethod(objectClass.getSuperclass(), methodName, paramTypes);
+                method = getMethod(objectClass.getSuperclass(), methodName, paramTypes, true);
             }
         }
         return method;

@@ -4,7 +4,7 @@ package moe.haruue.reflect.test;
  * Reflect target
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
-public class Target {
+public class Target extends Base {
 
     private String field = "this is a instance field";
 
