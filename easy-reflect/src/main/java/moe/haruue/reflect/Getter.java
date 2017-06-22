@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to mark a method as a getter
+ *
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -17,6 +18,7 @@ public @interface Getter {
 
     /**
      * The name of the field you want to reflect
+     *
      * @return field name
      */
     String name();

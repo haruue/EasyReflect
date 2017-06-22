@@ -95,13 +95,13 @@ public class Test {
 
     @org.junit.Test
     public void getStaticFieldOfSuperClass() throws Throwable {
-        TargetInterface proxy = EasyReflect.from(null, Target.class, TargetInterface.class);
+        TargetInterface proxy = EasyReflect.ofStatic(Target.class, TargetInterface.class);
         assertEquals("this is super's static field", proxy.getSuperStaticField());
     }
 
     @org.junit.Test
     public void setStaticFieldOfSuperClass() throws Throwable {
-        TargetInterface proxy = EasyReflect.from(null, Target.class, TargetInterface.class);
+        TargetInterface proxy = EasyReflect.ofStatic(Target.class, TargetInterface.class);
         String oldStaticField = proxy.getSuperStaticField();
         proxy.setSuperStaticField("reflected");
         assertEquals("reflected", proxy.getSuperStaticField());
@@ -125,7 +125,7 @@ public class Test {
 
     @org.junit.Test
     public void invokeStaticMethodOfSuperClass() throws Throwable {
-        TargetInterface proxy = EasyReflect.from(null, Target.class, TargetInterface.class);
+        TargetInterface proxy = EasyReflect.ofStatic(Target.class, TargetInterface.class);
         assertEquals("is super's static field", proxy.superStaticMethod(5));
     }
 
